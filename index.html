@@ -3,60 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나만의 티어 메이커</title>
+  <title>티메 (Ti-Me)</title>
   <link rel="stylesheet" href="style.css">
-  <!-- 앱 다운로드를 위한 매니페스트 연결 -->
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
-
-  <!-- 홈 화면 (주제 목록) -->
-  <div id="home-screen">
-    <h1>내 티어 리스트 모음</h1>
-    <button id="create-new-btn">+ 새 주제로 티어 만들기</button>
-    <div id="tier-list-container">
-      <!-- 생성된 티어 리스트 버튼들이 여기에 추가됨 -->
-    </div>
+  <div class="blob-container">
+    <div class="blob"></div>
   </div>
 
-  <!-- 티어 매기기 화면 -->
-  <div id="tier-screen" style="display: none;">
-    <button id="back-btn">⬅ 홈으로</button>
-    <h2 id="current-title">티어 주제</h2>
+  <div id="home-screen">
+    <h1>티메</h1>
+    <p>내 티어 & 랭킹 리스트 모음</p>
     
-    <!-- 티어 보드 -->
-    <div class="tier-board">
+    <div class="project-list" id="project-list">
+      </div>
+    
+    <button id="new-project-btn" class="fab">+</button>
+  </div>
+
+  <div id="workspace-screen" style="display: none;">
+    <div class="header">
+      <button id="back-btn">⬅</button>
+      <h2 id="current-project-title">주제 이름</h2>
+    </div>
+
+    <div class="add-section">
+      <input type="text" id="item-name" placeholder="후보 이름">
+      <input type="file" id="item-image" accept="image/*">
+      <input type="text" id="item-memo" placeholder="선정 이유 (메모)">
+      <button id="add-item-btn">추가</button>
+    </div>
+
+    <div class="pool" id="item-pool" data-tier="pool"></div>
+
+    <div id="tier-mode" class="mode-area">
       <div class="tier-row"><div class="tier-label S">S</div><div class="tier-items" data-tier="S"></div></div>
       <div class="tier-row"><div class="tier-label A">A</div><div class="tier-items" data-tier="A"></div></div>
       <div class="tier-row"><div class="tier-label B">B</div><div class="tier-items" data-tier="B"></div></div>
       <div class="tier-row"><div class="tier-label C">C</div><div class="tier-items" data-tier="C"></div></div>
     </div>
 
-    <!-- 아이템 추가 영역 -->
-    <div class="add-item-area">
-      <input type="text" id="item-text" placeholder="아이템 이름">
-      <input type="file" id="item-image" accept="image/*">
-      <button id="add-item-btn">아이템 추가</button>
+    <div id="ranking-mode" class="mode-area" style="display: none;">
+      <p style="margin-bottom:10px; font-size:14px; color:#666;">※ 아이템을 끌어다 순서를 맞춰보세요!</p>
+      <div class="ranking-list" id="ranking-list" data-tier="ranking">
+        </div>
     </div>
 
-    <!-- 미분류 아이템들이 모이는 곳 -->
-    <div class="item-pool" id="item-pool" data-tier="pool">
-      <!-- 추가된 아이템들이 처음에 여기에 생김 -->
-    </div>
-
-    <!-- 메모장 -->
-    <div class="memo-area">
-      <h3>이유 메모장</h3>
-      <textarea id="tier-memo" placeholder="왜 이렇게 순위를 매겼는지 적어보세요..."></textarea>
+    <div class="bottom-nav">
+      <button id="nav-tier" class="active">티어</button>
+      <button id="nav-ranking">랭킹</button>
     </div>
   </div>
 
   <script src="script.js"></script>
-  <script>
-    // 서비스 워커 등록 (앱 설치용)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
-  </script>
 </body>
 </html>
