@@ -6,7 +6,7 @@
   <title>티메 (Ti-Me)</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
-  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 </head>
 <body>
 
@@ -14,17 +14,27 @@
     <img id="usagi" src="usagi1.gif" alt="우사기">
   </div>
 
+  <div id="custom-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3>새 주제 입력</h3>
+      <input type="text" id="modal-input" placeholder="주제를 적어주세요" autocomplete="off">
+      <div class="modal-buttons">
+        <button id="modal-cancel" class="btn-cancel">취소</button>
+        <button id="modal-confirm" class="btn-confirm">확인</button>
+      </div>
+    </div>
+  </div>
+
   <div id="home-screen">
     <h1>티메</h1>
-    <p>내 취향을 기록하는 공간</p>
-    
-    <div class="project-list" id="project-list">
-      </div>
     
     <div class="home-buttons">
-      <button id="btn-new-tier" class="create-btn tier-btn">👑 티어 만들기</button>
-      <button id="btn-new-ranking" class="create-btn ranking-btn">🏆 랭킹 만들기</button>
+      <button id="btn-new-tier" class="create-btn tier-btn">티어</button>
+      <button id="btn-new-ranking" class="create-btn ranking-btn">랭킹</button>
     </div>
+
+    <div class="project-list" id="project-list">
+      </div>
   </div>
 
   <div id="workspace-screen" style="display: none;">
@@ -50,7 +60,7 @@
     </div>
 
     <div id="ranking-mode" class="mode-area" style="display: none;">
-      <p style="margin-bottom:10px; font-size:16px; color:#888;">※ 끌어다 순서를 맞춰보세요!</p>
+      <p style="margin-bottom:10px; font-size:14px; color:#888;">아이템을 위아래로 끌어다 순서를 맞춰보세요.</p>
       <div class="ranking-list" id="ranking-list" data-zone="ranking"></div>
     </div>
   </div>
