@@ -1,126 +1,109 @@
 :root {
-  --bg-color: #FEFCE8; /* 연한 노랑 배경 */
-  --card-color: #FEF08A; /* 조금 진한 노랑 카드 */
-  --accent-color: #FACC15; /* 포인트 진한 노랑 */
-  --text-color: #451A03; /* 부드러운 갈색 텍스트 */
+  --bg-color: #FEFCE8;
+  --card-color: #FEF08A;
+  --accent-color: #FACC15;
+  --text-color: #451A03;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body { 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+  font-family: 'Jua', sans-serif; /* 폰트 적용 */
   background-color: var(--bg-color); 
   color: var(--text-color); 
   overflow-x: hidden; 
+  letter-spacing: 0.5px;
 }
 
-/* 둥둥 떠다니는 귀여운 블롭(캐릭터) 애니메이션 */
-.blob-container { position: fixed; top: -50px; right: -50px; z-index: -1; opacity: 0.4; }
-.blob { 
-  width: 250px; height: 250px; 
-  background: var(--accent-color); 
-  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
-  animation: morph 4s ease-in-out infinite alternate; 
+/* 🐰 우사기 위치 지정 (우측 하단) */
+.character-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px; /* 우사기 크기 조절 */
+  height: auto;
+  z-index: 1000;
+  pointer-events: none; /* 클릭 방해 안 하게 */
 }
-@keyframes morph { 
-  0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } 
-  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } 
+#usagi { width: 100%; drop-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+
+/* 홈 화면 & 버튼 2개 */
+#home-screen { padding: 30px 20px; text-align: center; }
+h1 { font-size: 50px; margin-bottom: 5px; color: var(--accent-color); }
+p { font-size: 20px; color: #854d0e; }
+
+.home-buttons { 
+  display: flex; gap: 15px; justify-content: center; margin-top: 30px; 
 }
+.create-btn {
+  padding: 15px 25px; border: none; border-radius: 15px;
+  font-size: 20px; font-family: 'Jua', sans-serif; cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.tier-btn { background: #ffcc99; }
+.ranking-btn { background: #99ccff; color: #fff; }
 
-/* 1. 홈 화면 스타일 */
-#home-screen { padding: 30px 20px; }
-h1 { font-size: 40px; margin-bottom: 5px; color: var(--accent-color); }
-
-/* 가로 스크롤 카드 */
+/* 카드 리스트 */
 .project-list { 
   display: flex; overflow-x: auto; gap: 15px; padding: 20px 0; 
-  scroll-snap-type: x mandatory; 
+  scroll-snap-type: x mandatory; text-align: left;
 }
 .project-card { 
-  min-width: 220px; height: 160px; background: white; 
-  border: 3px solid var(--primary-color); border-radius: 20px; 
+  min-width: 200px; height: 150px; background: white; 
+  border: 3px solid var(--accent-color); border-radius: 20px; 
   padding: 20px; display: flex; flex-direction: column; 
   justify-content: space-between; scroll-snap-align: start; 
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 .project-actions { display: flex; gap: 8px; }
 .project-actions button { 
   flex: 1; padding: 8px; border: none; border-radius: 8px; 
-  background: var(--card-color); font-weight: bold; cursor: pointer; 
+  background: var(--card-color); font-family: 'Jua'; cursor: pointer; 
 }
 
-/* 플러스 떠있는 버튼 */
-.fab { 
-  position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; 
-  border-radius: 50%; background: var(--accent-color); border: none; 
-  font-size: 30px; color: white; cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-}
-
-/* 2. 작업 화면 스타일 */
-#workspace-screen { padding: 20px; padding-bottom: 80px; }
-.header button { border:none; background:none; font-size:24px; cursor:pointer;}
+/* 작업 화면 */
+#workspace-screen { padding: 20px; padding-bottom: 120px; }
+.header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.header button { border:none; background:none; font-size:30px; cursor:pointer;}
+h2 { font-size: 30px; }
 
 .add-section { 
   display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; 
   background: white; padding: 15px; border-radius: 15px; 
 }
-.add-section input { padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 1; min-width: 100px; }
-.add-section button { padding: 10px 20px; background: var(--accent-color); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.add-section input { font-family: 'Jua'; padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 1; min-width: 100px; font-size: 16px;}
+.add-section button { font-family: 'Jua'; padding: 10px 20px; background: var(--accent-color); border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
 
-.pool { 
-  min-height: 100px; border: 2px dashed #ccc; border-radius: 15px; 
-  padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; background: #fffbeb;
-}
+.pool { min-height: 100px; border: 3px dashed #ccc; border-radius: 15px; padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; background: #fffbeb; }
 
-/* 티어 모드 */
+/* 티어 */
 .tier-row { display: flex; min-height: 80px; border-bottom: 1px solid #ddd; background: white; }
-.tier-label { width: 70px; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; }
+.tier-label { width: 70px; display: flex; justify-content: center; align-items: center; font-size: 26px; }
 .tier-label.S { background: #ff9999; }
 .tier-label.A { background: #ffcc99; }
 .tier-label.B { background: #ffff99; }
 .tier-label.C { background: #99ff99; }
 .tier-items { flex: 1; display: flex; flex-wrap: wrap; gap: 10px; padding: 10px; }
 
-/* 랭킹 모드 */
+/* 랭킹 */
 .ranking-list { display: flex; flex-direction: column; gap: 10px; min-height: 300px; background: white; padding: 15px; border-radius: 15px; }
 
-/* 드래그 아이템 공통 (티어용 네모) */
+/* 아이템 */
 .item { 
-  width: 80px; height: 80px; background: white; border: 1px solid #ddd; border-radius: 10px; 
+  width: 80px; height: 80px; background: white; border: 2px solid #ddd; border-radius: 10px; 
   display: flex; flex-direction: column; align-items: center; justify-content: center; 
-  cursor: grab; position: relative; font-size: 12px; font-weight: bold; overflow: hidden; 
-  background-size: cover; background-position: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: grab; position: relative; font-size: 14px; overflow: hidden; 
+  background-size: cover; background-position: center; 
 }
 .item .name-tag { background: rgba(255,255,255,0.85); width: 100%; padding: 3px; text-align: center; }
-
-/* 이유(메모) 툴팁 */
 .item-memo-tooltip { 
   display: none; position: absolute; bottom: 100%; left: 0; 
   background: #333; color: #fff; padding: 8px; border-radius: 5px; 
-  width: 150px; z-index: 10; font-size: 11px; font-weight: normal; word-break: keep-all;
+  width: 150px; z-index: 10; font-size: 14px; font-family: 'Jua';
 }
 .item:hover .item-memo-tooltip { display: block; }
 
-/* 랭킹 모드일 때 아이템 가로형으로 길게 변신 */
-.ranking-list .item { 
-  width: 100%; height: auto; min-height: 60px; flex-direction: row; 
-  justify-content: flex-start; padding: 10px; text-align: left; 
-}
-.ranking-list .item .name-tag { width: auto; background: none; font-size: 16px; margin-left: 10px;}
-.ranking-list .item .item-memo-tooltip { 
-  display: block; position: relative; background: none; color: #888; 
-  width: auto; font-size: 12px; margin-left: auto; /* 메모를 오른쪽 끝으로 */
-}
-.ranking-number { font-size: 24px; font-weight: bold; color: var(--accent-color); width: 40px; text-align: center; }
-
-/* 하단 네비게이션 탭 */
-.bottom-nav { 
-  position: fixed; bottom: 0; left: 0; width: 100%; height: 65px; 
-  background: white; display: flex; border-top: 2px solid #eee; z-index: 100;
-}
-.bottom-nav button { 
-  flex: 1; border: none; background: none; font-size: 18px; font-weight: bold; 
-  color: #ccc; cursor: pointer; transition: 0.2s;
-}
-.bottom-nav button.active { color: var(--text-color); border-top: 4px solid var(--accent-color); background: var(--bg-color); }
+/* 랭킹 아이템 변신 */
+.ranking-list .item { width: 100%; height: auto; min-height: 60px; flex-direction: row; justify-content: flex-start; padding: 10px; }
+.ranking-list .item .name-tag { width: auto; background: none; font-size: 20px; margin-left: 10px;}
+.ranking-list .item .item-memo-tooltip { display: block; position: relative; background: none; color: #888; width: auto; margin-left: auto; }
+.ranking-number { font-size: 24px; color: var(--accent-color); width: 40px; text-align: center; }

@@ -6,20 +6,25 @@
   <title>티메 (Ti-Me)</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="blob-container">
-    <div class="blob"></div>
+
+  <div class="character-container">
+    <img id="usagi" src="usagi1.gif" alt="우사기">
   </div>
 
   <div id="home-screen">
     <h1>티메</h1>
-    <p>내 티어 & 랭킹 리스트 모음</p>
+    <p>내 취향을 기록하는 공간</p>
     
     <div class="project-list" id="project-list">
       </div>
     
-    <button id="new-project-btn" class="fab">+</button>
+    <div class="home-buttons">
+      <button id="btn-new-tier" class="create-btn tier-btn">👑 티어 만들기</button>
+      <button id="btn-new-ranking" class="create-btn ranking-btn">🏆 랭킹 만들기</button>
+    </div>
   </div>
 
   <div id="workspace-screen" style="display: none;">
@@ -35,24 +40,18 @@
       <button id="add-item-btn">추가</button>
     </div>
 
-    <div class="pool" id="item-pool" data-tier="pool"></div>
+    <div class="pool" id="item-pool" data-zone="pool"></div>
 
     <div id="tier-mode" class="mode-area">
-      <div class="tier-row"><div class="tier-label S">S</div><div class="tier-items" data-tier="S"></div></div>
-      <div class="tier-row"><div class="tier-label A">A</div><div class="tier-items" data-tier="A"></div></div>
-      <div class="tier-row"><div class="tier-label B">B</div><div class="tier-items" data-tier="B"></div></div>
-      <div class="tier-row"><div class="tier-label C">C</div><div class="tier-items" data-tier="C"></div></div>
+      <div class="tier-row"><div class="tier-label S">S</div><div class="tier-items" data-zone="S"></div></div>
+      <div class="tier-row"><div class="tier-label A">A</div><div class="tier-items" data-zone="A"></div></div>
+      <div class="tier-row"><div class="tier-label B">B</div><div class="tier-items" data-zone="B"></div></div>
+      <div class="tier-row"><div class="tier-label C">C</div><div class="tier-items" data-zone="C"></div></div>
     </div>
 
     <div id="ranking-mode" class="mode-area" style="display: none;">
-      <p style="margin-bottom:10px; font-size:14px; color:#666;">※ 아이템을 끌어다 순서를 맞춰보세요!</p>
-      <div class="ranking-list" id="ranking-list" data-tier="ranking">
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-      <button id="nav-tier" class="active">티어</button>
-      <button id="nav-ranking">랭킹</button>
+      <p style="margin-bottom:10px; font-size:16px; color:#888;">※ 끌어다 순서를 맞춰보세요!</p>
+      <div class="ranking-list" id="ranking-list" data-zone="ranking"></div>
     </div>
   </div>
 
