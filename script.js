@@ -6,6 +6,7 @@ let pendingProjectType = '';
 const usagi = document.getElementById('usagi');
 let isDragging = false;
 
+// 우사기 타이머
 setInterval(() => {
   if (!isDragging) {
     const randomNum = Math.floor(Math.random() * 4) + 1;
@@ -43,7 +44,7 @@ document.getElementById('modal-confirm').addEventListener('click', () => {
   }
 });
 
-// ---------------- 📚 스페셜 웹툰 리스트 자동 세팅 로직 ----------------
+// ---------------- 웹툰 리스트 자동 생성 ----------------
 const webtoonList = [
   "일간알바", "코드네임 아나스타샤", "소꿉친구와 감금당했다", "공과 사는 구분해!", "그 가이드가 집착광공의 품에서 벗어나는 방법", 
   "더 뮤즈", "쉬운 선배", "노 모럴(No Moral)", "러브 오더", "솔트 소사이어티", "녹색전상", "고양이 테라피", "텐(TEN)", 
@@ -73,28 +74,28 @@ const webtoonList = [
   "누군가 정해둔 것처럼", "자두를 누르지 마시오", "감금당해 주세요!"
 ];
 
-document.getElementById('btn-auto-webtoon').addEventListener('click', () => {
+document.getElementById('btn-auto-webtoon-tier').addEventListener('click', () => createAutoProject('tier'));
+document.getElementById('btn-auto-webtoon-ranking').addEventListener('click', () => createAutoProject('ranking'));
+
+function createAutoProject(type) {
   const id = Date.now().toString();
-  // 센스 있는 기본 타이틀 자동 부여
-  projects[id] = { id, title: '뭋해한 취향 웹툰 랭킹', type: 'tier', items: [] };
+  projects[id] = { id, title: '웹툰 취향 리스트', type: type, items: [] };
   
-  // 리스트에 있는 웹툰들을 대기실(pool)에 몽땅 추가
-  webtoonList.forEach((webtoonName, index) => {
+  webtoonList.forEach((name, index) => {
     projects[id].items.push({
       itemId: id + '-' + index,
-      name: webtoonName,
+      name: name,
       memo: '',
       img: null,
       zone: 'pool'
     });
   });
-
   saveData();
   renderHome();
-  openProject(id); // 만들자마자 바로 작업 화면으로 쏙!
-});
-// --------------------------------------------------------------------------
+  openProject(id);
+}
 
+// ---------------- 기본 기능 ----------------
 function createProject(type, title) {
   const id = Date.now().toString();
   projects[id] = { id, title, type, items: [] };
@@ -152,6 +153,7 @@ document.getElementById('back-btn').addEventListener('click', () => {
   document.getElementById('home-screen').style.display = 'block';
 });
 
+// 아이템 추가 로직
 document.getElementById('add-item-btn').addEventListener('click', () => {
   const name = document.getElementById('item-name').value;
   const memo = document.getElementById('item-memo').value;
@@ -187,6 +189,23 @@ document.getElementById('add-item-btn').addEventListener('click', () => {
   fileInput.value = '';
 });
 
+// 💡 순위 계산 (끼워넣기 위치 판별)
+function getDragAfterElement(container, x, y) {
+  const draggableElements = [...container.querySelectorAll('.item:not(.dragging)')];
+  return draggableElements.reduce((closest, child) => {
+    const box = child.getBoundingClientRect();
+    const offset = container.classList.contains('ranking-list') 
+      ? y - box.top - box.height / 2 
+      : x - box.left - box.width / 2;
+    if (offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+// 화면 그리기 및 드래그 이벤트 할당
 function renderItems() {
   document.querySelectorAll('.tier-items, .pool, .ranking-list').forEach(el => el.innerHTML = '');
   
@@ -204,22 +223,28 @@ function renderItems() {
 
     itemEl.addEventListener('dragstart', function(e) {
       draggedItem = item;
-      e.dataTransfer.setData('text/plain', item.itemId);
-      setTimeout(() => this.style.opacity = '0.5', 0);
-      
+      itemEl.classList.add('dragging');
       isDragging = true;
       usagi.src = 'usagi2.gif';
     });
 
     itemEl.addEventListener('dragend', function() {
-      setTimeout(() => {
-        this.style.opacity = '1';
-        draggedItem = null;
-        updateRanking();
-      }, 0);
-      
+      itemEl.classList.remove('dragging');
       isDragging = false;
       usagi.src = 'usagi1.gif';
+      
+      // 드래그 끝나면 바뀐 순서대로 데이터 재배열
+      const newItems = [];
+      document.querySelectorAll('.item').forEach(el => {
+        const found = projects[currentId].items.find(i => i.itemId === el.id);
+        if (found) {
+          found.zone = el.parentElement.getAttribute('data-zone');
+          newItems.push(found);
+        }
+      });
+      projects[currentId].items = newItems;
+      saveData();
+      renderItems(); 
     });
 
     const dropZone = document.querySelector(`[data-zone="${item.zone}"]`);
@@ -229,21 +254,18 @@ function renderItems() {
   updateRanking();
 }
 
+// 드롭 영역 이벤트 (끼워넣기 처리)
 document.querySelectorAll('.tier-items, .pool, .ranking-list').forEach(zone => {
-  zone.addEventListener('dragover', e => e.preventDefault());
-  zone.addEventListener('dragenter', function(e) {
+  zone.addEventListener('dragover', (e) => {
     e.preventDefault();
-    this.style.background = 'rgba(0,0,0,0.02)';
-  });
-  zone.addEventListener('dragleave', function() {
-    this.style.background = '';
-  });
-  zone.addEventListener('drop', function(e) {
-    this.style.background = '';
-    if (draggedItem) {
-      draggedItem.zone = this.getAttribute('data-zone');
-      saveData();
-      renderItems();
+    const afterElement = getDragAfterElement(zone, e.clientX, e.clientY);
+    const dragging = document.querySelector('.dragging');
+    if (dragging) {
+      if (afterElement == null) {
+        zone.appendChild(dragging);
+      } else {
+        zone.insertBefore(dragging, afterElement);
+      }
     }
   });
 });

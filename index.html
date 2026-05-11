@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>티메 (Ti-Me)</title>
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 </head>
@@ -27,43 +27,49 @@
 
   <div id="home-screen">
     <h1>티메</h1>
-    
     <div class="home-buttons">
       <button id="btn-new-tier" class="create-btn tier-btn">티어</button>
       <button id="btn-new-ranking" class="create-btn ranking-btn">랭킹</button>
-      <button id="btn-auto-webtoon" class="create-btn auto-btn">📚 웹툰 리스트 자동 생성</button>
     </div>
-
+    <div class="auto-buttons">
+      <button id="btn-auto-webtoon-tier" class="create-btn auto-btn">벵 티어</button>
+      <button id="btn-auto-webtoon-ranking" class="create-btn auto-btn">벵 랭킹</button>
+    </div>
     <div class="project-list" id="project-list"></div>
   </div>
 
   <div id="workspace-screen" style="display: none;">
-    <div class="header">
-      <button id="back-btn">⬅</button>
-      <h2 id="current-project-title">주제 이름</h2>
+    <div class="sticky-header">
+      <div class="header">
+        <button id="back-btn">⬅</button>
+        <h2 id="current-project-title">주제 이름</h2>
+      </div>
+
+      <div class="add-section">
+        <input type="text" id="item-name" placeholder="후보 이름">
+        <input type="file" id="item-image" accept="image/*">
+        <input type="text" id="item-memo" placeholder="선정 이유 (메모)">
+        <button id="add-item-btn">추가</button>
+      </div>
+
+      <p class="pool-label">대기실 (좌우 스크롤)</p>
+      <div class="pool" id="item-pool" data-zone="pool"></div>
     </div>
 
-    <div class="add-section">
-      <input type="text" id="item-name" placeholder="후보 이름">
-      <input type="file" id="item-image" accept="image/*">
-      <input type="text" id="item-memo" placeholder="선정 이유 (메모)">
-      <button id="add-item-btn">추가</button>
-    </div>
+    <div class="content-area">
+      <div id="tier-mode" class="mode-area">
+        <div class="tier-row"><div class="tier-label SSR">SSR</div><div class="tier-items" data-zone="SSR"></div></div>
+        <div class="tier-row"><div class="tier-label SR">SR</div><div class="tier-items" data-zone="SR"></div></div>
+        <div class="tier-row"><div class="tier-label S">S</div><div class="tier-items" data-zone="S"></div></div>
+        <div class="tier-row"><div class="tier-label A">A</div><div class="tier-items" data-zone="A"></div></div>
+        <div class="tier-row"><div class="tier-label B">B</div><div class="tier-items" data-zone="B"></div></div>
+        <div class="tier-row"><div class="tier-label C">C</div><div class="tier-items" data-zone="C"></div></div>
+        <div class="tier-row"><div class="tier-label D">D</div><div class="tier-items" data-zone="D"></div></div>
+      </div>
 
-    <div class="pool" id="item-pool" data-zone="pool"></div>
-
-    <div id="tier-mode" class="mode-area">
-      <div class="tier-row"><div class="tier-label SS">SS</div><div class="tier-items" data-zone="SS"></div></div>
-      <div class="tier-row"><div class="tier-label S">S</div><div class="tier-items" data-zone="S"></div></div>
-      <div class="tier-row"><div class="tier-label A">A</div><div class="tier-items" data-zone="A"></div></div>
-      <div class="tier-row"><div class="tier-label B">B</div><div class="tier-items" data-zone="B"></div></div>
-      <div class="tier-row"><div class="tier-label C">C</div><div class="tier-items" data-zone="C"></div></div>
-      <div class="tier-row"><div class="tier-label D">D</div><div class="tier-items" data-zone="D"></div></div>
-    </div>
-
-    <div id="ranking-mode" class="mode-area" style="display: none;">
-      <p style="margin-bottom:10px; font-size:14px; color:#888;">아이템을 위아래로 끌어다 순서를 맞춰보세요.</p>
-      <div class="ranking-list" id="ranking-list" data-zone="ranking"></div>
+      <div id="ranking-mode" class="mode-area" style="display: none;">
+        <div class="ranking-list" id="ranking-list" data-zone="ranking"></div>
+      </div>
     </div>
   </div>
 

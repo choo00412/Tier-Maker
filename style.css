@@ -1,8 +1,8 @@
 :root {
-  --bg-color: #fff7c7; /* 너무 노랗지 않은 아주 깔끔한 배경 */
+  --bg-color: #FAFAFA; 
   --card-color: #FFFFFF;
   --accent-color: #FACC15;
-  --text-color: #222222; /* 진하고 깔끔한 텍스트 */
+  --text-color: #222222; 
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -12,22 +12,17 @@ body {
   background-color: var(--bg-color); 
   color: var(--text-color); 
   overflow-x: hidden; 
-  letter-spacing: -0.3px; /* 글씨를 살짝 좁혀서 더 세련되게 */
+  letter-spacing: -0.3px; 
 }
 
 /* 우사기 위치 지정 */
 .character-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 100px;
-  height: auto;
-  z-index: 1000;
-  pointer-events: none;
+  position: fixed; bottom: 20px; right: 20px; width: 100px; height: auto;
+  z-index: 1000; pointer-events: none;
 }
 #usagi { width: 100%; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
 
-/* 커스텀 모달 창 (세련된 팝업) */
+/* 커스텀 모달 창 */
 .modal-overlay {
   display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
@@ -53,40 +48,35 @@ body {
 .btn-confirm { background: var(--accent-color); color: var(--text-color); }
 .btn-confirm:hover { background: #eab308; }
 
-/* 홈 화면 (좌측 정렬) */
+/* 홈 화면 */
 #home-screen { padding: 40px 20px; text-align: left; max-width: 800px; margin: 0 auto; }
 h1 { font-size: 44px; margin-bottom: 20px; font-weight: 800; }
 
-.home-buttons { display: flex; gap: 12px; margin-bottom: 30px; }
+.home-buttons { display: flex; gap: 12px; margin-bottom: 10px; }
 .create-btn {
   padding: 14px 28px; border: none; border-radius: 12px;
   font-size: 16px; font-weight: 700; font-family: inherit; cursor: pointer;
   transition: all 0.2s ease;
 }
-
-/* 티어 버튼: 진한 노란색 */
-.tier-btn { 
-  background: var(--accent-color); 
-  color: var(--text-color); 
-}
+.tier-btn { background: var(--accent-color); color: var(--text-color); }
 .tier-btn:hover { background: #eab308; transform: translateY(-2px); }
-
-/* 랭킹 버튼: 연한 하얀-노란색 */
-.ranking-btn { 
-  background: #FFF9C4; 
-  color: var(--text-color); 
-  border: 1px solid #FDE047; 
-}
+.ranking-btn { background: #FFF9C4; color: var(--text-color); border: 1px solid #FDE047; }
 .ranking-btn:hover { background: #FFF59D; transform: translateY(-2px); }
 
-/* 카드 리스트 (테두리 삭제, 그림자 추가) */
+/* 자동 생성 버튼 (파란색) */
+.auto-buttons { display: flex; gap: 8px; margin-bottom: 30px; }
+.auto-btn { 
+  flex: 1; font-size: 14px; background: #3B82F6; color: #FFFFFF; 
+  border: 1px solid #2563EB; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.2s;
+}
+.auto-btn:hover { background: #2563EB; transform: translateY(-2px); }
+
+/* 카드 리스트 */
 .project-list { 
   display: flex; overflow-x: auto; gap: 20px; padding: 10px 0 30px 0; 
   scroll-snap-type: x mandatory; 
 }
-/* 스크롤바 숨기기 (더 깔끔하게) */
 .project-list::-webkit-scrollbar { display: none; }
-
 .project-card { 
   min-width: 220px; height: 160px; background: var(--card-color); 
   border-radius: 20px; padding: 24px; display: flex; flex-direction: column; 
@@ -94,31 +84,28 @@ h1 { font-size: 44px; margin-bottom: 20px; font-weight: 800; }
   box-shadow: 0 8px 24px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.02);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-}
+.project-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
 .project-card h3 { font-size: 18px; font-weight: 600; line-height: 1.4; word-break: keep-all;}
-
 .project-actions { display: flex; gap: 8px; }
 .project-actions button { 
   flex: 1; padding: 10px; border: none; border-radius: 10px; 
-  background: #f4f4f5; font-family: inherit; font-weight: 600; font-size: 13px;
-  cursor: pointer; transition: 0.2s; color: #333;
+  background: #f4f4f5; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; color: #333;
 }
 .project-actions button.del-btn { background: #fee2e2; color: #ef4444; }
-.project-actions button:hover { filter: brightness(0.95); }
 
-/* 작업 화면 */
-#workspace-screen { padding: 20px; padding-bottom: 120px; max-width: 800px; margin: 0 auto;}
+/* 💡 작업 화면 상단 고정 (대기실 고정) */
+#workspace-screen { padding: 0 20px 120px 20px; max-width: 800px; margin: 0 auto; }
+.sticky-header {
+  position: sticky; top: 0; background: var(--bg-color); z-index: 100;
+  padding: 20px 0 10px 0; border-bottom: 1px solid #eee; margin-bottom: 20px;
+}
 .header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
 .header button { border:none; background:none; font-size:24px; cursor:pointer; color: #555;}
 h2 { font-size: 24px; font-weight: 700; }
 
 .add-section { 
-  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; 
-  background: white; padding: 20px; border-radius: 16px; 
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px; 
+  background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 .add-section input { 
   font-family: inherit; padding: 12px; border: 1px solid #eaeaea; 
@@ -129,21 +116,27 @@ h2 { font-size: 24px; font-weight: 700; }
   border: none; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; 
 }
 
+/* 💡 대기실 가로 스크롤 레이아웃 */
+.pool-label { font-size: 12px; font-weight: 700; color: #888; margin: 10px 0 5px 5px; }
 .pool { 
-  min-height: 100px; border: 2px dashed #d4d4d8; border-radius: 16px; 
-  padding: 15px; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; 
-  background: transparent;
+  height: 90px; border: 2px dashed #d4d4d8; border-radius: 16px; 
+  padding: 10px; display: flex; overflow-x: auto; gap: 10px; 
+  background: white; white-space: nowrap;
 }
+.pool::-webkit-scrollbar { height: 6px; }
+.pool::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 
 /* 티어 */
 .tier-row { display: flex; min-height: 80px; border-bottom: 1px solid #f0f0f0; background: white; }
 .tier-label { width: 80px; display: flex; justify-content: center; align-items: center; font-size: 22px; font-weight: 800; }
-.tier-label.SS { background: #ff7171; color: #410505;}
-.tier-label.S { background: #FFB3B3; color: #991B1B;}
-.tier-label.A { background: #FFD6A5; color: #9A3412;}
-.tier-label.B { background: #FDFFB6; color: #854D0E;}
-.tier-label.C { background: #CAFFBF; color: #166534;}
-.tier-label.D { background: #a8bff0; color: #1e4169;}
+/* 👇 여기서부터 티어별 색상 추가 및 변경 👇 */
+.tier-label.SSR { background: #E9D5FF; color: #6B21A8; } /* 고급스러운 보라색 */
+.tier-label.SR  { background: #FEF08A; color: #854D0E; } /* 빛나는 금색/노란색 */
+.tier-label.S   { background: #FFB3B3; color: #991B1B; } /* 붉은색 */
+.tier-label.A   { background: #FFD6A5; color: #9A3412; } /* 주황색 */
+.tier-label.B   { background: #FDFFB6; color: #854D0E; } /* 연노랑색 */
+.tier-label.C   { background: #CAFFBF; color: #166534; } /* 초록색 */
+.tier-label.D   { background: #BFDBFE; color: #1E3A8A; } /* 시원한 파란색 */
 .tier-items { flex: 1; display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; }
 
 /* 랭킹 */
@@ -156,13 +149,14 @@ h2 { font-size: 24px; font-weight: 700; }
   cursor: grab; position: relative; font-size: 13px; font-weight: 600; overflow: hidden; 
   background-size: cover; background-position: center; 
   box-shadow: 0 4px 10px rgba(0,0,0,0.08); border: 1px solid rgba(0,0,0,0.05);
+  flex-shrink: 0; /* 가로 스크롤에서 찌그러짐 방지 */
 }
-.item .name-tag { background: rgba(255,255,255,0.9); width: 100%; padding: 4px; text-align: center; font-size: 12px;}
+.item .name-tag { background: rgba(255,255,255,0.9); width: 100%; padding: 4px; text-align: center; font-size: 12px; word-break: keep-all;}
 .item-memo-tooltip { 
   display: none; position: absolute; bottom: 105%; left: 0; 
   background: rgba(0,0,0,0.8); color: #fff; padding: 8px 12px; border-radius: 8px; 
   width: 160px; z-index: 10; font-size: 12px; font-weight: 400; font-family: inherit;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px); white-space: normal;
 }
 .item:hover .item-memo-tooltip { display: block; }
 
@@ -178,16 +172,5 @@ h2 { font-size: 24px; font-weight: 700; }
 }
 .ranking-number { font-size: 18px; font-weight: 800; color: #a1a1aa; width: 40px; text-align: center; }
 
-/* ... 기존 코드 그대로 유지 ... */
-
-/* 스페셜 버튼 디자인 추가 */
-.auto-btn {
-  background: #d1df16; /* 시원한 파란색 포인트 */
-  color: #FFFFFF;
-  border: 1px solid #d1df16;
-  margin-left: auto; /* 우측으로 살짝 밀기 */
-}
-.auto-btn:hover {
-  background: #d1df16;
-  transform: translateY(-2px);
-}
+/* 드래그 애니메이션 보조 */
+.item.dragging { opacity: 0.5; border: 2px solid var(--accent-color); }
