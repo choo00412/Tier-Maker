@@ -175,3 +175,17 @@ h2 { font-size: 24px; font-weight: 700; }
   width: auto; margin-left: auto; font-size: 14px; bottom: auto; padding: 0;
 }
 .ranking-number { font-size: 18px; font-weight: 800; color: #a1a1aa; width: 40px; text-align: center; }
+
+/* ... 기존 코드 그대로 유지 ... */
+
+/* 스페셜 버튼 디자인 추가 */
+.auto-btn {
+  background: #d1df16; /* 시원한 파란색 포인트 */
+  color: #FFFFFF;
+  border: 1px solid #d1df16;
+  margin-left: auto; /* 우측으로 살짝 밀기 */
+}
+.auto-btn:hover {
+  background: #d1df16;
+  transform: translateY(-2px);
+}
