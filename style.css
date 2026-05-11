@@ -138,10 +138,12 @@ h2 { font-size: 24px; font-weight: 700; }
 /* 티어 */
 .tier-row { display: flex; min-height: 80px; border-bottom: 1px solid #f0f0f0; background: white; }
 .tier-label { width: 80px; display: flex; justify-content: center; align-items: center; font-size: 22px; font-weight: 800; }
+.tier-label.SS { background: #ff7171; color: #410505;}
 .tier-label.S { background: #FFB3B3; color: #991B1B;}
 .tier-label.A { background: #FFD6A5; color: #9A3412;}
 .tier-label.B { background: #FDFFB6; color: #854D0E;}
 .tier-label.C { background: #CAFFBF; color: #166534;}
+.tier-label.D { background: #a8bff0; color: #1e4169;}
 .tier-items { flex: 1; display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; }
 
 /* 랭킹 */
