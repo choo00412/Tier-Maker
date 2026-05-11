@@ -116,14 +116,25 @@ h2 { font-size: 24px; font-weight: 700; }
   border: none; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; 
 }
 
-/* 💡 대기실 가로 스크롤 레이아웃 */
+/* 💡 대기실 여러 줄(약 4줄) + 세로 스크롤 레이아웃 */
 .pool-label { font-size: 12px; font-weight: 700; color: #888; margin: 10px 0 5px 5px; }
+
 .pool { 
-  height: 90px; border: 2px dashed #d4d4d8; border-radius: 16px; 
-  padding: 10px; display: flex; overflow-x: auto; gap: 10px; 
-  background: white; white-space: nowrap;
+  max-height: 340px; /* 대략 4줄 정도 보이는 높이 제한 */
+  min-height: 100px; 
+  border: 2px dashed #d4d4d8; 
+  border-radius: 16px; 
+  padding: 10px; 
+  display: flex; 
+  flex-wrap: wrap; /* 👈 꽉 차면 다음 줄로 넘어가게 하는 마법의 코드! */
+  align-content: flex-start;
+  overflow-y: auto; /* 세로로 스크롤바 생김 */
+  gap: 10px; 
+  background: white; 
 }
-.pool::-webkit-scrollbar { height: 6px; }
+
+/* 세로 스크롤바 디자인 */
+.pool::-webkit-scrollbar { width: 8px; }
 .pool::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 
 /* 티어 */
